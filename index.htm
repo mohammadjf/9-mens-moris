@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Testing the socket connection.</title>
+    
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+    
+        let pusher = new Pusher('b85457c928f6ef3b43d3', {
+          cluster: 'ap2'
+        });
+    
+        let channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+          console.log('socket event recieved: ' + data);
+          let offset = document.getElementById('first-agent').offsetLeft;
+          if(data.payload == 'right') {
+            offset += 100;
+          } else {
+            offset -= 100;
+          }
+          document.getElementById('first-agent').style.left = offset + 'px';
+        });
+
+        document.addEventListener('keydown', (e) => {
+          // prepare http req sender.
+          let req = new XMLHttpRequest();
+          let url = 'https://pusher.daroodarmoon.ir/send?payload=';
+          let payload = '';
+
+          if(e.keyCode == 37) {
+            payload = 'left';
+          } else if(e.keyCode == 39) {
+            payload = 'right';
+          }
+
+          url += payload;
+          console.log('req sent url: ' + url);
+          req.open('GET', url);
+          req.send();
+        });
+    </script>
+    
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <h3>This is a simple page to test <strong>Gamepusher</strong> socket connection.</h3>
+        <p>
+            Try publishing an event to channel <code>my-channel</code>
+            with event name <code>my-event</code>.
+        </p>
+
+        <div class="playground">
+          <div class="agent" id="first-agent"></div>
+        </div>
+    </div>
+</body>
+</html>

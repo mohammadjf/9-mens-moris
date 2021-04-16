@@ -1,0 +1,13 @@
+.playground {
+    display: block;
+}
+
+#first-agent {
+    position: absolute;
+    top: 200px;
+    left: 300px;
+    width: 60px;
+    height: 60px;
+    background-color: darkslategrey;
+    border-radius: 10px;
+}
