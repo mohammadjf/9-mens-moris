@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <title>Testing the socket connection.</title>
-    
+
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script>
+    <!-- <script>
 
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
@@ -44,21 +47,58 @@
           req.open('GET', url);
           req.send();
         });
-    </script>
-    
-    <link href="style.css" rel="stylesheet">
-</head>
-<body>
-    <div>
-        <h3>This is a simple page to test <strong>Gamepusher</strong> socket connection.</h3>
-        <p>
-            Try publishing an event to channel <code>my-channel</code>
-            with event name <code>my-event</code>.
-        </p>
+    </script> -->
 
-        <div class="playground">
-          <div class="agent" id="first-agent"></div>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- <div>
+      <h3>This is a simple page to test <strong>Gamepusher</strong> socket connection.</h3>
+      <p>
+          Try publishing an event to channel <code>my-channel</code>
+          with event name <code>my-event</code>.
+      </p>
+
+      <div class="playground">
+        <div class="agent" id="first-agent"></div>
+      </div>
+  </div> -->
+    <div id="playground">
+      <div class="outer square">
+        <div class="place-holder top-left"></div>
+        <div class="piece top-left"></div>
+        <div class="place-holder top-middle"></div>
+        <div class="place-holder top-right"></div>
+        <div class="place-holder middle-left"></div>
+        <div class="place-holder middle-right"></div>
+        <div class="place-holder bottom-left"></div>
+        <div class="place-holder bottom-middle"></div>
+        <div class="place-holder bottom-right"></div>
+        <div class="middle square">
+          <div class="place-holder top-left"></div>
+          <div class="place-holder top-middle"></div>
+          <div class="place-holder top-right"></div>
+          <div class="place-holder middle-left"></div>
+          <div class="place-holder middle-right"></div>
+          <div class="place-holder bottom-left"></div>
+          <div class="place-holder bottom-middle"></div>
+          <div class="place-holder bottom-right"></div>
+          <div class="inner square">
+            <div class="place-holder top-left"></div>
+            <div class="place-holder top-middle"></div>
+            <div class="place-holder top-right"></div>
+            <div class="place-holder middle-left"></div>
+            <div class="place-holder middle-right"></div>
+            <div class="place-holder bottom-left"></div>
+            <div class="place-holder bottom-middle"></div>
+            <div class="place-holder bottom-right"></div>
+          </div>
         </div>
+        <div class="connector up"></div>
+        <div class="connector down"></div>
+        <div class="connector right"></div>
+        <div class="connector left"></div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
