@@ -86,6 +86,7 @@ body {
 }
 
 .connector {
+  z-index: -1;
   position: absolute;
   background: #b4b1ac;
 }
@@ -121,42 +122,12 @@ body {
   background: #073b86;
   border-radius: 50%;
   border: 5px solid #19224a;
+  transform: translate(-15%, -15%);
 }
 
-.piece.top-left {
-  left: -30px;
-  top: -30px;
-}
-
-.piece.top-middle {
-  top: -30px;
-}
-
-.piece.top-right {
-  right: -30px;
-  top: -30px;
-}
-
-.piece.middle-left {
-  left: -30px;
-}
-
-.piece.middle-right {
-  right: -30px;
-}
-
-.piece.bottom-left {
-  left: -30px;
-  bottom: -30px;
-}
-
-.piece.bottom-middle {
-  bottom: -30px;
-}
-
-.piece.bottom-right {
-  right: -30px;
-  bottom: -30px;
+.enemy {
+  background: #ffc859;
+  border: 5px solid #ff9354;
 }
 
 /* #first-agent {
