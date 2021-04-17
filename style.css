@@ -86,7 +86,6 @@ body {
 }
 
 .connector {
-  z-index: -1;
   position: absolute;
   background: #b4b1ac;
 }
@@ -123,6 +122,7 @@ body {
   border-radius: 50%;
   border: 5px solid #19224a;
   transform: translate(-15%, -15%);
+  z-index: 1;
 }
 
 .enemy {
