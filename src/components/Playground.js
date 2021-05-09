@@ -1,55 +1,31 @@
 import '../style/App.css';
+import PlaceHolder from './PlaceHolder';
 
 function App() {
+
+  const positions = [
+    'top-left',
+    'top-middle',
+    'top-right',
+    'middle-left',
+    'middle-right',
+    'bottom-left',
+    'bottom-middle',
+    'bottom-right'
+  ];
+
+  const renderPositions = () => {
+    return positions.map(item => <PlaceHolder position={item}/>)
+  }
+
   return (
     <div id="playground">
       <div class="outer square">
-        <div class="place-holder top-left"></div>
-        <div class="place-holder top-middle"></div>
-        <div class="place-holder top-right"></div>
-        <div class="place-holder middle-left"></div>
-        <div class="place-holder middle-right"></div>
-        <div class="place-holder bottom-left"></div>
-        <div class="place-holder bottom-middle"></div>
-        <div class="place-holder bottom-right"></div>
+        { renderPositions() }
         <div class="middle square">
-          <div class="place-holder top-left"></div>
-          <div class="place-holder top-middle"></div>
-          <div class="place-holder top-right"></div>
-          <div class="place-holder middle-left"></div>
-          <div class="place-holder middle-right"></div>
-          <div class="place-holder bottom-left"></div>
-          <div class="place-holder bottom-middle">
-            <div class="piece"></div>
-          </div>
-          <div class="place-holder bottom-right">
-            <div class="piece"></div>
-          </div>
+          { renderPositions() }
           <div class="inner square">
-            <div class="place-holder top-left">
-              <div class="piece"></div>
-            </div>
-            <div class="place-holder top-middle">
-              <div class="piece enemy"></div>
-            </div>
-            <div class="place-holder top-right">
-              <div class="piece"></div>
-            </div>
-            <div class="place-holder middle-left">
-              <div class="piece enemy"></div>
-            </div>
-            <div class="place-holder middle-right">
-              <div class="piece"></div>
-            </div>
-            <div class="place-holder bottom-left">
-              <div class="piece enemy"></div>
-            </div>
-            <div class="place-holder bottom-middle">
-              <div class="piece"></div>
-            </div>
-            <div class="place-holder bottom-right">
-              <div class="piece"></div>
-            </div>
+            { renderPositions() }
           </div>
         </div>
         <div class="connector up"></div>
