@@ -2,10 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Playground from './components/Playground';
 import reportWebVitals from './reportWebVitals';
+import Pusher from 'pusher-js';
+
+const pusher = new Pusher('b85457c928f6ef3b43d3', {
+  cluster: 'ap2'
+});
+
+let channel = pusher.subscribe('my-channel');
 
 ReactDOM.render(
   <React.StrictMode>
-    <Playground />
+    <Playground channel={channel} />
   </React.StrictMode>,
   document.getElementById('root')
 );
