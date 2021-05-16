@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Playground from './components/Playground';
+import Routes from "./routes/index";
 import reportWebVitals from './reportWebVitals';
 import Pusher from 'pusher-js';
 
@@ -12,7 +12,7 @@ let channel = pusher.subscribe('my-channel');
 
 ReactDOM.render(
   <React.StrictMode>
-    <Playground channel={channel} />
+    <Routes channel={channel} />
   </React.StrictMode>,
   document.getElementById('root')
 );
