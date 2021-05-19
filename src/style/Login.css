@@ -4,11 +4,21 @@
     align-items: center;
 }
 
-.container button {
+.login_panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.login_panel button {
     margin-left: 5px;
+    margin-top: 10px;
     line-height: 20px;
 }
 
-.container input {
+.login_panel h3 {
+    margin: 50px 0 10px 0;
+}
 
+.login_panel input {
+    margin-top: 10px;
 }
