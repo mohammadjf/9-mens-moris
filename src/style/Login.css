@@ -5,8 +5,13 @@
 }
 
 .login_panel {
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
+}
+
+.login_panel .error {
+    color: red;
 }
 
 .login_panel button {

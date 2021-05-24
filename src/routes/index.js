@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Playground from "../components/Playground";
 
 class Routes extends React.Component {
@@ -9,6 +10,7 @@ class Routes extends React.Component {
             <Router>
                 <Switch>
                     <Route exact path="/login" component={Login} />
+                    <Route exact path="/register" component={Register} />
                     <Route exact path="/">
                         <Playground channel={this.props.channel}/>
                     </Route>
