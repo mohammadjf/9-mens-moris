@@ -2,13 +2,21 @@ import React, { Fragment, useState, useEffect } from 'react';
 import "../../style/Login.css";
 import axios from "axios";
 import { apiBaseUrl } from "../../config/constants";
+import { Link, useHistory } from "react-router-dom";
 
 function Login(props) {
 
+    /**
+     * Hooks
+     */
     const [email, setEmail] = useState(props.location.state ? props.location.state.email : "");
     const [password, setPassword] = useState(props.location.state ? props.location.state.password : "");
     const [isLoading, setIsLoading] = useState(false);
     const [loginTry, setLoginTry] = useState(0);
+
+    const history = useHistory();
+
+    /** */
 
     const register = () => {
         setIsLoading(true);
@@ -17,7 +25,7 @@ function Login(props) {
                 password: password
             })
             .then(response => {
-                console.log(response.data);
+                history.push("/");
             }).catch(error => {
                 console.log(error);
             }).finally(() => {
@@ -49,6 +57,7 @@ function Login(props) {
                         setPassword(e.target.value);
                     }}/>
                     <button onClick={register}> Go!</button>
+                    <Link to="/register"> Register </Link>
                 </div>
             }
         </div>
