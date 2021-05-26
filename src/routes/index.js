@@ -29,8 +29,8 @@ function Routes(props) {
         loading ? <div className="loading">Loading...</div> :
         <Router>
             <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" render={(props) => <Login {...props} isAuthed={auth} />} />
+                <Route exact path="/register" render={(props) => <Register {...props} isAuthed={auth} />} />
                 <Route exact path="/">
                     { auth ? <Playground channel={props.channel}/> : <Redirect to="/login" /> }
                 </Route>

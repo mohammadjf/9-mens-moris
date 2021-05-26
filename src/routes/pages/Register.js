@@ -2,9 +2,9 @@ import React, { Fragment, useState, useEffect } from 'react';
 import "../../style/Login.css";
 import axios from "axios";
 import { apiBaseUrl } from "../../config/constants";
-import { Redirect} from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
-function Register() {
+function Register(props) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState(false);
@@ -12,6 +12,14 @@ function Register() {
     const [isLoading, setIsLoading] = useState(false);
     const [errorMgs, setError] = useState([]);
     const [status, setStatus] = useState(false);
+
+    const history = useHistory();
+
+    useEffect(() => {
+        if(props.isAuthed) {
+            history.push("/");
+        }
+    });
 
     const register = () => {
         if(!password || password != repassword) {

@@ -23,9 +23,12 @@ function Login(props) {
         axios.post(apiBaseUrl + '/login', {
                 email: email,
                 password: password
+            },{
+                withCredentials: true
             })
             .then(response => {
-                history.push("/");
+                console.log(response);
+                // history.push("/");
             }).catch(error => {
                 console.log(error);
             }).finally(() => {
@@ -36,6 +39,9 @@ function Login(props) {
     useEffect(() => {
         if(props.location.state && props.location.state.email && props.location.state.password && loginTry === 0) {
             setLoginTry(loginTry + 1);
+        }
+        if(props.isAuthed) {
+            history.push("/");
         }
     });
 
