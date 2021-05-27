@@ -9,13 +9,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /*justify-content: center;*/
+  justify-content: center;
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
 }
 
 #playground {
-  position: absolute;
+  position: relative;
   background: #f0f0f0;
   width: 600px;
   height: 600px;

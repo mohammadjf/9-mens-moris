@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import "../../style/Login.css";
 import axios from "axios";
 import { apiBaseUrl } from "../../config/constants";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 
 function Login(props) {
 
@@ -13,6 +13,7 @@ function Login(props) {
     const [password, setPassword] = useState(props.location.state ? props.location.state.password : "");
     const [isLoading, setIsLoading] = useState(false);
     const [loginTry, setLoginTry] = useState(0);
+    const [loginSuccess, setLoginSuccess] = useState(false);
 
     const history = useHistory();
 
@@ -27,8 +28,8 @@ function Login(props) {
                 withCredentials: true
             })
             .then(response => {
-                console.log(response);
-                // history.push("/");
+                localStorage.setItem('userId', response.data.user);
+                setLoginSuccess(true);
             }).catch(error => {
                 console.log(error);
             }).finally(() => {
@@ -37,11 +38,9 @@ function Login(props) {
     };
 
     useEffect(() => {
+        // if request is redirected from register page.
         if(props.location.state && props.location.state.email && props.location.state.password && loginTry === 0) {
             setLoginTry(loginTry + 1);
-        }
-        if(props.isAuthed) {
-            history.push("/");
         }
     });
 
@@ -53,7 +52,7 @@ function Login(props) {
 
     return (
         <div className="container">
-            {isLoading ? <div> Loading . . . </div> :
+            {isLoading ? <div> Login Loading . . . </div> :
                 <div className="login_panel">
                     <h3>Login</h3>
                     <input placeholder="Your Email..." onChange={(e) => {
@@ -64,8 +63,10 @@ function Login(props) {
                     }}/>
                     <button onClick={register}> Go!</button>
                     <Link to="/register"> Register </Link>
+                    { props.isAuthed ? <Redirect to="/" /> : "" }
                 </div>
             }
+            { loginSuccess ? <Redirect to="/" /> : "" }
         </div>
     );
 }

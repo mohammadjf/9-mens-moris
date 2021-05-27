@@ -7,6 +7,21 @@ function PlaceHolder(props) {
     const [piece, setPiece] = useState('none');
 
     useEffect(() => {
+        // check if recieved socket signal should change the node or not.
+        const signalMatch = () => {
+            const signal = props.socketSignal;
+            
+            console.log(props, 'props');
+            console.log(signal, 'signal');
+
+            if(signal) {
+                if(props.box === signal.box && props.position === signal.position) {
+                    setPiece('enemy');
+                }
+            }
+
+            return false;
+        };
         signalMatch();
     }, [props.socketSignal]);
     /**
@@ -35,21 +50,6 @@ function PlaceHolder(props) {
                 console.log(err);
             });
     }
-    // check if recieved socket signal should change the node or not.
-    const signalMatch = () => {
-        const signal = props.socketSignal;
-        
-        console.log(props, 'props');
-        console.log(signal, 'signal');
-
-        if(signal) {
-            if(props.box === signal.box && props.position === signal.position) {
-                setPiece('enemy');
-            }
-        }
-
-        return false;
-    };
 
     const renderPiece = () => {
         if(piece === 'myself') {

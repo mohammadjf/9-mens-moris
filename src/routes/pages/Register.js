@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import "../../style/Login.css";
 import axios from "axios";
 import { apiBaseUrl } from "../../config/constants";
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, Link } from 'react-router-dom';
 
 function Register(props) {
 
@@ -64,6 +64,7 @@ function Register(props) {
                         setRePassword(e.target.value);
                     }}/>
                     <button onClick={register}> Register </button>
+                    Have an account? <Link to="/login"> Login </Link>
                     {status ? <Redirect to={{
                         pathname:"/login",
                         state:{email: email, password: password} 

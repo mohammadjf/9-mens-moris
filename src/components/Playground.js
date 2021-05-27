@@ -11,7 +11,7 @@ function App(props) {
   useEffect(() => {  
     props.channel.bind('my-event', function(data) {
       let sdata = JSON.parse(data.payload);
-console.log(sdata.player +'/'+ playerNumber);
+
       if(sdata.player != playerNumber) {
         setSignal(sdata);
       }
