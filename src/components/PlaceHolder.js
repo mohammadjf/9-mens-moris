@@ -10,9 +10,6 @@ function PlaceHolder(props) {
         // check if recieved socket signal should change the node or not.
         const signalMatch = () => {
             const signal = props.socketSignal;
-            
-            console.log(props, 'props');
-            console.log(signal, 'signal');
 
             if(signal) {
                 if(props.box === signal.box && props.position === signal.position) {

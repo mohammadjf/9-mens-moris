@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from "./routes/index";
+import Conjunction from "./routes/index";
 import reportWebVitals from './reportWebVitals';
 import Pusher from 'pusher-js';
 
@@ -12,7 +12,7 @@ let channel = pusher.subscribe('my-channel');
 
 ReactDOM.render(
   <React.StrictMode>
-    <Routes channel={channel} />
+    <Conjunction channel={channel} />
   </React.StrictMode>,
   document.getElementById('root')
 );

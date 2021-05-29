@@ -3,6 +3,7 @@ import "../../style/Login.css";
 import axios from "axios";
 import { apiBaseUrl } from "../../config/constants";
 import { Redirect, useHistory, Link } from 'react-router-dom';
+import {useAuth} from "./auth";
 
 function Register(props) {
 
@@ -14,12 +15,7 @@ function Register(props) {
     const [status, setStatus] = useState(false);
 
     const history = useHistory();
-
-    useEffect(() => {
-        if(props.isAuthed) {
-            history.push("/");
-        }
-    });
+    let auth = useAuth();
 
     const register = () => {
         if(!password || password != repassword) {
@@ -47,7 +43,7 @@ function Register(props) {
     };
 
     return (
-        <div className="container">
+        auth.user ? <Redirect to="/app" /> : <div className="container">
             {isLoading ? <div> Loading . . . </div> :
                 <div className="login_panel">
                     <h3>Register</h3>

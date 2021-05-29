@@ -1,74 +1,49 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import "../../style/Login.css";
-import axios from "axios";
-import { apiBaseUrl } from "../../config/constants";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { useAuth } from "./auth";
+import { Link, Redirect, useHistory, withRouter, useLocation } from "react-router-dom";
+
 
 function Login(props) {
-
     /**
      * Hooks
      */
-    const [email, setEmail] = useState(props.location.state ? props.location.state.email : "");
-    const [password, setPassword] = useState(props.location.state ? props.location.state.password : "");
-    const [isLoading, setIsLoading] = useState(false);
-    const [loginTry, setLoginTry] = useState(0);
-    const [loginSuccess, setLoginSuccess] = useState(false);
-
-    const history = useHistory();
-
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(false);
+    let location = useLocation();
     /** */
 
-    const register = () => {
-        setIsLoading(true);
-        axios.post(apiBaseUrl + '/login', {
-                email: email,
-                password: password
-            },{
-                withCredentials: true
-            })
-            .then(response => {
-                localStorage.setItem('userId', response.data.user);
-                setLoginSuccess(true);
-            }).catch(error => {
-                console.log(error);
-            }).finally(() => {
-                setIsLoading(false);
-            });
+    const history = useHistory();
+    let auth = useAuth();
+
+    let { from } = location.state || { from: { pathname: "/app" } };
+    let loginOpt = () => {
+        auth.signin(email, password, () => {
+            history.replace(from);
+        }, err => {
+            console.log(err.error);
+            setError(err.error);
+        });
     };
 
-    useEffect(() => {
-        // if request is redirected from register page.
-        if(props.location.state && props.location.state.email && props.location.state.password && loginTry === 0) {
-            setLoginTry(loginTry + 1);
-        }
-    });
-
-    useEffect(() => {
-        if(props.location.state && email && password && loginTry === 0) {
-            register();
-        }
-    },[loginTry]);
-
     return (
+        auth.user ? <Redirect to="/app" /> :
         <div className="container">
-            {isLoading ? <div> Login Loading . . . </div> :
-                <div className="login_panel">
-                    <h3>Login</h3>
-                    <input placeholder="Your Email..." onChange={(e) => {
-                        setEmail(e.target.value);
-                    }} value={email}/>
-                    <input placeholder="Your Password..." type="password" onChange={(e) => {
-                        setPassword(e.target.value);
-                    }}/>
-                    <button onClick={register}> Go!</button>
-                    <Link to="/register"> Register </Link>
-                    { props.isAuthed ? <Redirect to="/" /> : "" }
-                </div>
-            }
-            { loginSuccess ? <Redirect to="/" /> : "" }
+            <div className="login_panel">
+                {error ? <div className="error">{ error }</div> : ""}
+                <h3>Login</h3>
+                <input placeholder="Your Email..." onChange={(e) => {
+                    setEmail(e.target.value);
+                }} value={email}/>
+                <input placeholder="Your Password..." type="password" onChange={(e) => {
+                    setPassword(e.target.value);
+                }}/>
+                <button onClick={loginOpt}> Go!</button>
+                <Link to="/register"> Register </Link>
+            </div>
         </div>
     );
 }
 
-export default Login;
+export default withRouter(Login);

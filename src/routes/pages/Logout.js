@@ -1,24 +1,23 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
-import { apiBaseUrl } from "../../config/constants";
-import { Redirect, useHistory } from 'react-router-dom';
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "./auth";
 
-function Logout(prpos) {
-    const [loggedOut, setLoggedOut] = useState(false);
-    
-    const logout = () => {
-        axios.post(apiBaseUrl + '/logout',{},{
-            withCredentials: true
-        })
-        .then(res => {
-            localStorage.removeItem("userId");
-            setLoggedOut(true);
-        })
-    }
+function Logout(props) {
+    let history = useHistory();
+    let auth = useAuth();
 
-    return (
-        loggedOut ? <Redirect to="/" /> : <button onClick={logout} >Logout</button>
-    );
+    return auth.user ? (
+        <p>
+            Welcome!{" "}
+            <button
+                onClick={() => {
+                    auth.signout(() => history.push("/login"));
+                }}
+            >
+                Sign out
+            </button>
+        </p>
+    ) : "";
 }
 
 export default Logout;

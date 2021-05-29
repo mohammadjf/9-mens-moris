@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createContext, useContext } from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -6,44 +6,55 @@ import Main from "./pages/Main";
 import axios from 'axios';
 import { apiBaseUrl } from '../config/constants';
 import Logout from './pages/Logout';
+import NoMatch from "./pages/404";
+import {PrivateRoute, ProvideAuth} from "./pages/auth";
 
-function Routes(props) {
-    const [loading, setLoading] = useState(true);
+async function checkAuth() {
+    return axios.get(
+        apiBaseUrl + '/api/users',
+        {
+            withCredentials: true
+        })
+}
+
+function Conjunction(props) {
     const [auth, setAuth] = useState(false);
 
-    const checkAuth = () => {
-        axios.get(
-            apiBaseUrl + '/api/users',
-            {
-                withCredentials: true
-            })
-        .then(res => {
-            setAuth(true);
-        })
-        .catch(error =>{ })
-        .finally(() => {
-            setLoading(false);
-        });
-    };
-
-    useEffect(() => {
-        const userId = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0;
-        checkAuth();
-        // debugger;
-    });
+    // const isAuthed = async () => {
+    //     await checkAuth().then(() => {
+    //         setAuth(true);
+    //     }).catch(() => {
+    //         setAuth(false);
+    //     });
+    // };
+    //
+    // useEffect(() => {
+    //     isAuthed();
+    // });
 
     return (
-        loading ? <div className="loading">Route Loading...</div> :
+        <ProvideAuth>
         <Router>
+            <Logout/>
             <Switch>
-                <Route exact path="/login" render={(props) => <Login {...props} isAuthed={auth} />} />
-                <Route exact path="/register" render={(props) => <Register {...props} isAuthed={auth} />} />
-                <Route exact path="/">
-                    { auth ? <Main channel={props.channel}/> : <Redirect to="/login" /> }
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login">
+                    <Login {...props} />
+                </Route>
+                <Route exact path="/logout">
+                    <Logout/>
+                </Route>
+                <PrivateRoute path="/app">
+                    <Main channel={props.channel}/>
+                </PrivateRoute>
+                <Redirect from="/" to="/app" />
+                <Route path="*">
+                    <NoMatch />
                 </Route>
             </Switch>
         </Router>
+        </ProvideAuth>
     );
 }
 
-export default Routes;
+export default Conjunction;
