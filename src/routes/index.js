@@ -8,6 +8,7 @@ import { apiBaseUrl } from '../config/constants';
 import Logout from './pages/Logout';
 import NoMatch from "./pages/404";
 import {PrivateRoute, ProvideAuth} from "./pages/auth";
+import App from "../components/Playground";
 
 async function checkAuth() {
     return axios.get(
@@ -31,6 +32,8 @@ function Conjunction(props) {
     // useEffect(() => {
     //     isAuthed();
     // });
+
+    // return <App channel={props.channel} />
 
     return (
         <ProvideAuth>
