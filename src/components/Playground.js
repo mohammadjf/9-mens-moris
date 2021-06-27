@@ -3,12 +3,19 @@ import '../style/App.css';
 import PlaceHolder from './PlaceHolder';
 import {positions, socketSendUrl} from '../config/constants';
 import axios from "axios";
+import Pusher from 'pusher-js';
 
 function App(props) {
   // a state to store socket signal data.
   const [piece, setPiece] = useState({side:'none', position: 0, box: false});
 
-  props.channel.bind('my-event', function(data) {
+  const pusher = new Pusher('b85457c928f6ef3b43d3', {
+    cluster: 'ap2'
+  });
+
+  let channel = pusher.subscribe('my-channel');
+
+  channel.bind('my-event', function(data) {
     if(data && data.payload) {
       let sdata = JSON.parse(data.payload);
 

@@ -2,17 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Conjunction from "./routes/index";
 import reportWebVitals from './reportWebVitals';
-import Pusher from 'pusher-js';
-
-const pusher = new Pusher('b85457c928f6ef3b43d3', {
-  cluster: 'ap2'
-});
-
-let channel = pusher.subscribe('my-channel');
 
 ReactDOM.render(
   <React.StrictMode>
-    <Conjunction channel={channel} />
+    <Conjunction />
   </React.StrictMode>,
   document.getElementById('root')
 );

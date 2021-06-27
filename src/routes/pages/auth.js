@@ -40,13 +40,13 @@ export function useAuth() {
 }
 
 export function useProvideAuth() {
-    const [user, setUser] = useState(null);
-
-    checkLogin().then(() => {
-        setUser(true);
-    }).catch(() => {
-        setUser(false);
-    });
+    const [user, setUser] = useState(false);
+console.log(1, 'check');
+    // checkLogin().then(() => {
+    //     setUser(true);
+    // }).catch(() => {
+    //     setUser(false);
+    // });
 
     const signin = (email, password, cb, ecb)=> {
         loginRequest(email, password).then(res => {

@@ -48,7 +48,7 @@ function Conjunction(props) {
                     <Logout/>
                 </Route>
                 <PrivateRoute path="/app">
-                    <Main channel={props.channel}/>
+                    <Main/>
                 </PrivateRoute>
                 <Redirect from="/" to="/app" />
                 <Route path="*">

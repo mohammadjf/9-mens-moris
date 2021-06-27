@@ -11,15 +11,17 @@ function Main(props) {
 
     const history = useHistory();
 
-    if(userId && !user) {
-        axios.get(apiBaseUrl + '/api/users/' + userId, {withCredentials: true})
-        .then(res => {
-            setUser(res.data);
-        })
-        .catch(err => {
-            history.push("/login");
-        });
-    }
+    useEffect(() => {
+        if(userId && !user) {
+            axios.get(apiBaseUrl + '/api/users/' + userId, {withCredentials: true})
+            .then(res => {
+                setUser(res.data);
+            })
+            .catch(err => {
+                history.push("/login");
+            });
+        }
+    });
 
     return (
         <>
